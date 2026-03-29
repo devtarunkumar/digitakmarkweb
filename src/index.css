@@ -1,0 +1,85 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-primary: #0357A7;
+  --color-primary-light: #0891AA;
+  --color-primary-dark: #04336C;
+  --color-accent: #33A940;
+  --color-accent-light: #4ade80;
+  --color-accent-dark: #22c55e;
+  --shadow-orange: 0 10px 30px -5px rgba(3, 87, 167, 0.4);
+  --shadow-orange-lg: 0 20px 50px -10px rgba(3, 87, 167, 0.5);
+  --shadow-green: 0 10px 30px -5px rgba(51, 169, 64, 0.4);
+  --shadow-green-lg: 0 20px 50px -10px rgba(51, 169, 64, 0.5);
+}
+
+:root {
+  --primary: #0357A7;
+  --primary-light: #0891AA;
+  --primary-dark: #04336C;
+  --accent: #33A940;
+  --accent-light: #4ade80;
+  --accent-dark: #22c55e;
+  --primary-shadow: 0 10px 30px -5px rgba(3, 87, 167, 0.4);
+  --primary-glow: 0 0 20px rgba(3, 87, 167, 0.3);
+  --accent-shadow: 0 10px 30px -5px rgba(51, 169, 64, 0.4);
+  --accent-glow: 0 0 20px rgba(51, 169, 64, 0.3);
+  --bg-gray: #f9fafb;
+}
+
+@keyframes typing {
+  from {
+    width: 0
+  }
+
+  to {
+    width: 100%
+  }
+}
+
+.typing {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0;
+  animation: typing 4s forwards;
+}
+
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+}
+
+/* 3D Card Flip Animation */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+}
