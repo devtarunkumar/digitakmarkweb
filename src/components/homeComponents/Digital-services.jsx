@@ -17,9 +17,11 @@ import graphicDesigningImg from "../../assets/graphic-design.jpg";
 import searchEngineOptimizationImg from "../../assets/seo.jpg";
 import podcastServicesImg from "../../assets/podcast.jpg";
 import GsapReveal from "../GsapReveal";
+import { Link } from "react-router-dom";
 
-const services = [
+export const services = [
   {
+    slug: "social-media-management",
     title: "Social Media Page Management",
     shortDesc: "Scalable, secure, and high-performance digital brand handling.",
     fullDesc: "...",
@@ -27,6 +29,7 @@ const services = [
     image: socialMediaImg,
   },
   {
+    slug: "paid-ads",
     title: "Paid Ads",
     shortDesc: "Result-driven paid campaigns for maximum ROI.",
     fullDesc: "...",
@@ -34,6 +37,7 @@ const services = [
     image: paidAdsImg,
   },
   {
+    slug: "influencer-marketing",
     title: "Influencer Marketing",
     shortDesc: "Brand collaborations that drive trust and reach.",
     fullDesc: "...",
@@ -41,6 +45,7 @@ const services = [
     image: influencerMarketingImg,
   },
   {
+    slug: "graphic-design",
     title: "Graphic Designing",
     shortDesc: "Creative visuals aligned with brand identity.",
     fullDesc: "...",
@@ -48,6 +53,7 @@ const services = [
     image: graphicDesigningImg,
   },
   {
+    slug: "search-engine-optimization",
     title: "Search Engine Optimization",
     shortDesc: "Improve visibility and organic traffic.",
     fullDesc: "...",
@@ -55,6 +61,7 @@ const services = [
     image: searchEngineOptimizationImg,
   },
   {
+    slug: "podcast-services",
     title: "Podcast Services",
     shortDesc: "Amplify Your Brand Voice Through Engaging Audio Content",
     fullDesc: "...",
@@ -64,7 +71,6 @@ const services = [
 ];
 
 const DigitalServices = ({ variant = "services" }) => {
-  const [activeService, setActiveService] = useState(null);
 
   return (
     <section className="bg-gray-50 md:py-10 py-5 px-4">
@@ -101,7 +107,6 @@ const DigitalServices = ({ variant = "services" }) => {
                       }
                       : {}
                   }
-                  onClick={() => !isHome && setActiveService(service)}
                 >
                   {/* OVERLAY ONLY ON HOME */}
                   {isHome && (
@@ -136,15 +141,19 @@ const DigitalServices = ({ variant = "services" }) => {
                       {service.shortDesc}
                     </p>
 
-                    <button
-                      className={`font-bold text-sm text-start flex items-center gap-2 transition-all
-              ${isHome
-                          ? "w-fit inline-flex items-center gap-3 bg-linear-to-r from-primary to-accent text-white px-4 py-2 rounded-md font-semibold hover:from-primary-dark hover:to-accent-dark  shadow-orange hover:shadow-green-lg transition-all duration-300 group"
+                    <Link
+                      to={`/digital-services/${service.slug}`}
+                      className={`font-bold text-sm flex items-center gap-2
+  ${isHome
+                          ? "bg-linear-to-r from-primary to-accent text-white px-4 py-2 rounded-md"
                           : "text-primary-dark hover:gap-3"
                         }`}
                     >
-                      Show More <span className="group-hover:translate-x-1 transition-all duration-300">→</span>
-                    </button>
+                      Show More
+                      <span className="group-hover:translate-x-1 transition">
+                        →
+                      </span>
+                    </Link>
                   </div>
                 </div>
               </GsapReveal>
@@ -153,39 +162,6 @@ const DigitalServices = ({ variant = "services" }) => {
         </div>
       </div>
 
-      {/* MODAL ONLY FOR SERVICES PAGE */}
-      {variant === "services" && activeService && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
-          <div
-            className="absolute inset-0 bg-black/60"
-            onClick={() => setActiveService(null)}
-          ></div>
-
-          <div className="relative bg-white max-w-lg w-full rounded-2xl p-8 z-10">
-            <button
-              onClick={() => setActiveService(null)}
-              className="absolute top-4 right-4 text-gray-500 hover:text-black"
-            >
-              <FaTimes />
-            </button>
-
-            <div
-              className="w-14 h-14 flex items-center justify-center rounded-xl
-                            bg-primary/10 text-primary text-2xl mb-6"
-            >
-              {activeService.icon}
-            </div>
-
-            <h3 className="text-2xl font-bold text-gray-800 mb-4">
-              {activeService.title}
-            </h3>
-
-            <p className="text-gray-600 leading-relaxed">
-              {activeService.fullDesc}
-            </p>
-          </div>
-        </div>
-      )}
     </section>
   );
 };

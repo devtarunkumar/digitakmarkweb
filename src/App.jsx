@@ -6,7 +6,8 @@ import CTA from "./components/homeComponents/CTA";
 import Footer from "./components/Footer";
 import FixedCTA from "./components/FixedCTA";
 import ServiceDetails from "./pages/ServiceDetails";
-
+import DigitalServices from "./components/homeComponents/Digital-services";
+import DigitalServiceDetails from "./pages/DigitalServiceDetails";
 
 
 // Lazy load page components
@@ -57,6 +58,11 @@ const App = () => {
               <Route path="/about" element={<GsapPageTransition><About /></GsapPageTransition>} />
               <Route path="/services" element={<GsapPageTransition><Services /></GsapPageTransition>} />
               <Route path="/services/:serviceName" element={<ServiceDetails />} />
+              <Route path="/digital-services" element={<DigitalServices />} />
+              <Route
+                path="/digital-services/:slug"
+                element={<DigitalServiceDetails />}
+              />
               <Route path="/ClientSection" element={<GsapPageTransition><ClientSection /></GsapPageTransition>} />
               <Route path="/contact" element={<GsapPageTransition><Contact /></GsapPageTransition>} />
 
