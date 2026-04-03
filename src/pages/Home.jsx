@@ -1,6 +1,5 @@
 
 import AboutUs from '../components/homeComponents/About'
-import BrandJourney from '../components/homeComponents/BrandJourny'
 import HeroSlider from '../components/homeComponents/Hero'
 import Navsankalp from '../components/homeComponents/Navsanklap'
 import Services from '../components/homeComponents/Technologies'
@@ -21,9 +20,7 @@ const Home = () => {
       <GsapReveal width="100%">
         <Navsankalp />
       </GsapReveal>
-      <GsapReveal width="100%">
-        <BrandJourney />
-      </GsapReveal>
+      
       <GsapReveal width="100%">
         <Services />
       </GsapReveal>

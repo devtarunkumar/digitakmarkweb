@@ -1,0 +1,250 @@
+/* =====================================================
+   STRATVIZ DIGITAL SERVICES (SCOPED CSS ONLY)
+   Works ONLY where class="strat-services"
+===================================================== */
+
+.strat-services {
+  background: #0b0f19;
+  color: #fff;
+  padding: 80px 0;
+  font-family: "Inter", sans-serif;
+}
+
+/* ================= GRID ================= */
+
+.strat-services .services-grid {
+  width: 90%;
+  max-width: 1300px;
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+/* ================= CARD ================= */
+
+.strat-services .service-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: 0.35s ease;
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+  position: relative;
+}
+
+.strat-services .service-card:hover {
+  transform: translateY(-10px);
+  border-color: #00ffd1;
+}
+
+/* glow hover */
+.strat-services .service-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent, #00ffd133, transparent);
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.strat-services .service-card:hover::before {
+  opacity: 1;
+}
+
+/* image */
+
+.strat-services .service-card img {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  transition: 0.6s;
+}
+
+.strat-services .service-card:hover img {
+  transform: scale(1.08);
+}
+
+/* content */
+
+.strat-services .service-content {
+  padding: 22px;
+}
+
+.strat-services .service-content h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.strat-services .service-content p {
+  font-size: 0.95rem;
+  color: #9ca3af;
+}
+
+/* ================= DETAILS PAGE ================= */
+
+.strat-services .service-details {
+  max-width: 1100px;
+  margin: auto;
+  padding: 60px 20px;
+}
+
+/* HERO */
+
+.strat-services .service-hero {
+  text-align: center;
+  margin-bottom: 60px;
+  animation: stratFadeUp 1s ease;
+}
+
+.strat-services .service-hero h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  background: linear-gradient(135deg, #00ffd1, #4f46e5);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.strat-services .service-hero p {
+  color: #9ca3af;
+  margin-top: 10px;
+}
+
+/* ================= SECTIONS ================= */
+
+.strat-services .detail-section {
+  margin-bottom: 40px;
+  padding: 30px;
+  border-radius: 16px;
+  background: #111827;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  animation: stratFadeUp 0.8s ease forwards;
+}
+
+.strat-services .detail-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.strat-services .detail-section h2::after {
+  content: "";
+  width: 55px;
+  height: 3px;
+  background: #00ffd1;
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+}
+
+.strat-services .detail-section p {
+  color: #9ca3af;
+}
+
+/* ================= LISTS ================= */
+
+.strat-services .detail-list {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 14px;
+}
+
+.strat-services .detail-list li {
+  list-style: none;
+  padding: 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  transition: 0.3s ease;
+}
+
+.strat-services .detail-list li:hover {
+  background: rgba(0, 255, 209, 0.08);
+  transform: translateX(6px);
+}
+
+/* ================= FAQ ================= */
+
+.strat-services .faq-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 15px 0;
+  cursor: pointer;
+}
+
+.strat-services .faq-question {
+  font-weight: 600;
+}
+
+.strat-services .faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  color: #9ca3af;
+  transition: 0.4s ease;
+}
+
+.strat-services .faq-item.active .faq-answer {
+  max-height: 200px;
+  margin-top: 10px;
+}
+
+/* ================= BUTTON ================= */
+
+.strat-services .primary-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 26px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #00ffd1, #4f46e5);
+  color: #000;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.strat-services .primary-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 255, 209, 0.3);
+}
+
+/* ================= ANIMATIONS ================= */
+
+@keyframes stratFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(35px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.strat-services .detail-section:nth-child(2) { animation-delay: .2s; }
+.strat-services .detail-section:nth-child(3) { animation-delay: .4s; }
+.strat-services .detail-section:nth-child(4) { animation-delay: .6s; }
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+
+  .strat-services {
+    padding: 50px 0;
+  }
+
+  .strat-services .service-card img {
+    height: 170px;
+  }
+
+  .strat-services .detail-section {
+    padding: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .strat-services .service-hero h1 {
+    font-size: 1.8rem;
+  }
+
+}

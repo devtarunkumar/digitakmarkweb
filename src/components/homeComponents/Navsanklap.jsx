@@ -1,6 +1,7 @@
 import { FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import GsapReveal from "../GsapReveal";
+import darkimg from "../../assets/dark.avif";
 
 const industries = [
   {
@@ -28,50 +29,35 @@ const industries = [
 const StratvizSuite = () => {
   return (
     <section
-      className="
-        relative
-        px-6 sm:px-12 lg:px-24
-        md:py-16 py-10
-        min-h-[80vh]
-        flex items-center
-        bg-[url('src/assets/navsanklapImg.jpg')]
-        bg-cover
-        bg-no-repeat
-        bg-center
-        overflow-hidden
-      "
+      style={{ backgroundImage: `url(${darkimg})` }}
+      className="relative px-5 sm:px-10 lg:px-24 py-14 sm:py-20 min-h-[80vh] flex items-center bg-cover bg-center overflow-hidden"
     >
       {/* Overlay */}
-      <div className="absolute inset-0 bg-linear-to-b from-black/80 via-black/60 to-black/80"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/80"></div>
 
       <div className="relative z-10 max-w-7xl mx-auto w-full">
-        <div className="grid grid-cols-1 gap-12 items-center">
+        <div className="grid grid-cols-1 gap-12">
 
-          {/* HEADER CONTENT */}
+          {/* HEADER */}
           <GsapReveal width="100%">
-            <div
-              className="flex flex-col items-center text-center space-y-6"
-            >
-              <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white tracking-tight">
+            <div className="flex flex-col items-center text-center space-y-6">
+              <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white">
                 Stratviz{" "}
-                <span className="bg-linear-to-r from-primary to-accent bg-clip-text text-transparent drop-shadow-sm">
+                <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                   Solution Suite
                 </span>
               </h2>
 
-              <p className="text-gray-300 text-xl sm:text-3xl font-medium max-w-4xl mx-auto leading-tight">
-                Visionary Strategy.{" "}
-                <span className="text-white">Scalable Solutions.</span>
+              <p className="text-gray-300 text-lg sm:text-2xl font-medium max-w-4xl">
+                Visionary Strategy. <span className="text-white">Scalable Solutions.</span>
               </p>
 
-              <div className="w-24 h-1 bg-linear-to-r from-primary to-accent rounded-full shadow-orange"></div>
+              <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full"></div>
             </div>
           </GsapReveal>
 
           {/* CARDS GRID */}
-          <div
-            className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-5"
-          >
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-10 mt-6">
             {industries.map((item, index) => (
               <GsapReveal
                 key={index}
@@ -79,26 +65,38 @@ const StratvizSuite = () => {
                 direction={index % 2 === 0 ? "left" : "right"}
                 delay={index * 0.1}
               >
-                <div
-                  className="group bg-white/8 backdrop-blur-2xl border border-white/10 rounded-[32px] p-10 shadow-orange
-                             transition-all duration-500
-                             hover:bg-white/10
-                             hover:border-primary/30
-                             hover:shadow-primary-dark hover:-translate-y-2"
-                >
+                {/* Flip Card */}
+                <div className="group [perspective:1200px] h-[260px]">
+
                   <div
-                    className="w-12 h-12 bg-primary/20 rounded-2xl flex items-center justify-center text-primary text-xl mb-6 group-hover:bg-primary group-hover:text-white transition-all duration-300 "
+                    className="
+                      relative w-full h-full
+                      transition-transform duration-700
+                      [transform-style:preserve-3d]
+                      group-hover:[transform:rotateY(180deg)]
+                    "
                   >
-                    <FaArrowRight />
+                    {/* FRONT */}
+                    <div className="absolute inset-0 rounded-3xl bg-black/40 backdrop-blur-xl border border-white/10 flex flex-col items-center justify-center text-center p-8 [backface-visibility:hidden]">
+
+                      <div className="w-16 h-16 rounded-2xl flex items-center justify-center bg-gradient-to-br from-primary/20 to-accent/20 text-primary text-2xl mb-6 transition-all duration-500 group-hover:scale-110">
+                        <FaArrowRight />
+                      </div>
+
+                      <h3 className="text-xl sm:text-2xl font-semibold text-white">
+                        {item.title}
+                      </h3>
+                    </div>
+
+                    {/* BACK */}
+                    <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/10 to-black/60 backdrop-blur-xl border border-primary/30 p-8 flex items-center justify-center text-center [transform:rotateY(180deg)] [backface-visibility:hidden]">
+
+                      <p className="text-gray-200 text-sm sm:text-base leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
+
                   </div>
-
-                  <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-primary transition-colors">
-                    {item.title}
-                  </h3>
-
-                  <p className="text-gray-400 leading-relaxed text-sm group-hover:text-gray-200 transition-colors">
-                    {item.description}
-                  </p>
                 </div>
               </GsapReveal>
             ))}
@@ -106,15 +104,10 @@ const StratvizSuite = () => {
 
           {/* CTA BUTTON */}
           <GsapReveal width="100%" direction="up" delay={0.4}>
-            <div
-              className="flex justify-center"
-            >
+            <div className="flex justify-center">
               <Link
                 to="/contact"
-                className="
-                  inline-flex mt-6 items-center gap-3 bg-linear-to-r from-primary to-accent text-white px-8 py-4 rounded-xl font-bold hover:from-primary-dark hover:to-accent-dark shadow-orange hover:shadow-green-lg hover:-translate-y-1
-                  transition-all duration-300 group
-                "
+                className="inline-flex mt-6 items-center gap-3 bg-gradient-to-r from-primary to-accent text-white px-8 py-4 rounded-xl font-bold hover:-translate-y-1 transition-all duration-300 group"
               >
                 Explore the Ecosystem
                 <span className="group-hover:translate-x-2 transition-transform duration-300">

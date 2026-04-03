@@ -1,172 +1,126 @@
-import { useParams } from "react-router-dom";
-import { servicesData } from "../data/servicesData";
-import "./ServiceDetails.css";
-import { useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { services } from "../data/servicesData";
+import { FaArrowLeft } from "react-icons/fa";
 
-const ServiceDetails = () => {
-  const { serviceName } = useParams();
+const ServiceDetail = () => {
 
-  const service = servicesData.find(
-    (item) => item.slug === serviceName
-  );
+    /* ================= ROUTER ================= */
+    const { slug } = useParams();
+    const navigate = useNavigate();
 
-  /* ================= SCROLL ANIMATION ================= */
-  useEffect(() => {
-    const elements = document.querySelectorAll(".service-section");
+    /* ================= FIND SERVICE ================= */
+    const service = services.find((s) => s.slug === slug);
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
-      },
-      { threshold: 0.2 }
+    /* ================= NOT FOUND ================= */
+    if (!service) {
+        return (
+            <div className="h-screen flex items-center justify-center text-xl text-white bg-[#020617]">
+                Service not found
+            </div>
+        );
+    }
+
+    /* ================= BACK FUNCTION ================= */
+    const handleBack = () => {
+        // agar history hai → back jao
+        if (window.history.length > 1) {
+            navigate(-1);
+        } else {
+            // direct URL open hua ho
+            navigate("/services");
+        }
+    };
+
+    return (
+        <div className="service-page min-h-screen bg-[#020617] text-white">
+
+            {/* ================= HERO SECTION ================= */}
+            <div className="service-hero relative h-[260px] md:h-[350px] overflow-hidden">
+
+                {/* BACK BUTTON */}
+                <button
+                    onClick={handleBack}
+                    className="absolute top-6 left-6 z-20 flex items-center gap-2
+                    bg-black/60 backdrop-blur-md text-white
+                    px-5 py-2 rounded-full shadow-lg
+                    hover:bg-black transition"
+                >
+                    <FaArrowLeft />
+                    Back
+                </button>
+
+                {/* HERO IMAGE */}
+                <img
+                    src={service.image}
+                    alt={service.title}
+                    className="w-full h-full object-cover"
+                />
+
+                {/* OVERLAY */}
+                <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+                    <h1 className="text-3xl md:text-5xl font-bold text-center px-4">
+                        {service.title}
+                    </h1>
+                </div>
+            </div>
+
+            {/* ================= INTRO ================= */}
+            <div className="max-w-6xl mx-auto px-4 md:px-10 py-14">
+                <div className="glass-card text-center">
+                    <p className="section-text max-w-3xl mx-auto">
+                        {service.description}
+                    </p>
+                </div>
+            </div>
+
+            {/* ================= DETAIL SECTIONS ================= */}
+            <div className="space-y-24 pb-24">
+                {service.details.sections.map((section, index) => (
+                    <DetailSection
+                        key={index}
+                        section={section}
+                        reverse={index % 2 !== 0}
+                    />
+                ))}
+            </div>
+        </div>
     );
-
-    elements.forEach((el) => {
-      el.classList.add("fade-scroll");
-      observer.observe(el);
-    });
-
-    return () => observer.disconnect(); // cleanup (PRO practice)
-  }, []);
-
-  if (!service) {
-    return <div className="not-found">Service Not Found</div>;
-  }
-
-  return (
-    <section className="service-details">
-
-      {/* HERO */}
-      <div className="service-hero">
-        <img src={service.image} alt={service.title} />
-        <div className="service-hero-overlay">
-          <h1>{service.title}</h1>
-          <p>{service.description}</p>
-        </div>
-      </div>
-
-      <div className="service-container">
-
-        {/* OVERVIEW */}
-        <div className="service-section">
-          <h2>Service Overview</h2>
-          <p>
-            Our {service.title} service is designed to help businesses transform
-            digitally with modern technologies, scalable architecture, and
-            performance-driven solutions.
-          </p>
-
-          <img
-            src="/OV1.webp"
-            alt="overview"
-            className="service-img"
-          />
-        </div>
-
-        {/* BEGINNER */}
-        <div className="service-section">
-          <h2>Understanding the Basics</h2>
-
-          <p>
-            At the beginner level, we analyze user needs, market trends,
-            and technical planning before development begins.
-          </p>
-
-          <ul>
-            <li>✔ Requirement Analysis</li>
-            <li>✔ Market Research</li>
-            <li>✔ UX Planning</li>
-            <li>✔ Technology Selection</li>
-          </ul>
-
-          <img
-            src="/ub.avif"
-            alt="planning"
-            className="service-img"
-          />
-        </div>
-
-        {/* PROCESS */}
-        <div className="service-section">
-          <h2>Our Development Process</h2>
-
-          <ul>
-            <li>⚡ UI/UX Design & Prototyping</li>
-            <li>⚡ Frontend & Backend Development</li>
-            <li>⚡ Performance Optimization</li>
-            <li>⚡ Testing & QA</li>
-            <li>⚡ Deployment</li>
-          </ul>
-
-          <img
-            src="/dp.webp"
-            alt="development"
-            className="service-img"
-          />
-        </div>
-
-        {/* ADVANCED */}
-        <div className="service-section">
-          <h2>Advanced Capabilities</h2>
-
-          <ul>
-            <li>🚀 Cloud Integration</li>
-            <li>🚀 API Architecture</li>
-            <li>🚀 AI Automation</li>
-            <li>🚀 Security Optimization</li>
-            <li>🚀 Scalable Infrastructure</li>
-          </ul>
-
-          <img
-            src="/ad.webp"
-            alt="advanced"
-            className="service-img"
-          />
-        </div>
-
-        {/* INDUSTRIES */}
-        <div className="service-section">
-          <h2>Industries We Serve</h2>
-
-          <ul>
-            <li>🏢 Real Estate</li>
-            <li>🛒 E-commerce</li>
-            <li>🏥 Healthcare</li>
-            <li>🎓 Education</li>
-            <li>💼 Enterprise</li>
-          </ul>
-
-          <img
-            src="/is.png"
-            alt="industries"
-            className="service-img"
-          />
-        </div>
-
-        {/* FINAL */}
-        <div className="service-section">
-          <h2>Our Commitment to Excellence</h2>
-
-          <p>
-            We build future-ready digital solutions focused on performance,
-            scalability, and user experience while maintaining clean
-            architecture and modern design standards.
-          </p>
-
-          <img
-            src="/oc.webp"
-            alt="team"
-            className="service-img"
-          />
-        </div>
-
-      </div>
-    </section>
-  );
 };
 
-export default ServiceDetails;
+/* =========================================================
+   DETAIL SECTION COMPONENT
+========================================================= */
+
+const DetailSection = ({ section, reverse }) => {
+    return (
+        <div className="detail-section max-w-6xl mx-auto px-4 md:px-10">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+
+                {/* TEXT */}
+                <div className={reverse ? "md:order-2" : ""}>
+                    <h2 className="section-title">
+                        {section.title}
+                    </h2>
+
+                    <p className="section-text whitespace-pre-line">
+                        {section.content}
+                    </p>
+                </div>
+
+                {/* IMAGE */}
+                <div className={reverse ? "md:order-1" : ""}>
+                    <div className="section-image">
+                        <img
+                            src={section.image}
+                            alt={section.title}
+                            className="w-full rounded-xl shadow-lg"
+                        />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    );
+};
+
+export default ServiceDetail;

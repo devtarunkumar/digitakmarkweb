@@ -1,73 +1,8 @@
-
-import {
-  FaCode,
-  FaServer,
-  FaDatabase,
-  FaChartLine,
-  FaLink,
-  FaLock,
-} from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { memo } from "react";
-import frontendImg from "../../assets/frontend.jpg";
-import backendImg from "../../assets/backend.jpg";
-import databaseImg from "../../assets/database.jpg";
-import dashboardImg from "../../assets/dashboard.jpg";
-import apiImg from "../../assets/api-integration.avif";
-import securityImg from "../../assets/Security.avif";
+
 import GsapReveal from "../GsapReveal";
-
-const services = [
-  {
-    title: "Frontend Development",
-    slug: "frontend-development",
-    description:
-      "Modern and responsive user interfaces built using HTML, CSS, JavaScript, React, and Tailwind CSS to ensure smooth user experience across all devices.",
-    icon: <FaCode />,
-    image: frontendImg,
-  },
-  {
-    title: "Backend Development",
-    slug: "backend-development",
-    description:
-      "Secure and scalable server-side development using Node.js and Express for handling business logic and data processing.",
-    icon: <FaServer />,
-    image: backendImg,
-  },
-  {
-    title: "Database Management",
-    slug: "database-management",
-    description:
-      "Efficient data storage and management using MongoDB / MySQL to ensure fast and reliable performance.",
-    icon: <FaDatabase />,
-    image: databaseImg,
-  },
-  {
-    title: "Dashboard & Admin Panels",
-    slug: "dashboard-admin-panels",
-    description:
-      "Data-driven dashboards with analytics, charts, and management systems for better business decision-making.",
-    icon: <FaChartLine />,
-    image: dashboardImg,
-  },
-  {
-    title: "API Integration",
-    slug: "api-integration",
-    description:
-      "Secure REST APIs for smooth communication between frontend and backend systems.",
-    icon: <FaLink />,
-    image: apiImg,
-  },
-  {
-    title: "Security & Deployment",
-     slug: "security-deployment",
-    description:
-      "SSL integration, authentication systems, hosting setup, and performance optimization to ensure safe and reliable deployment.",
-    icon: <FaLock />,
-    image: securityImg,
-  },
-];
-
+import { services } from "../../data/servicesData";
 const Services = memo(({ mode = "redirect", onSelectService }) => {
   return (
     <section className="bg-primary/5 pt-16 px-4">
