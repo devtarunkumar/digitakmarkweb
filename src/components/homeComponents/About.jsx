@@ -4,7 +4,8 @@ import { memo, useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import aboutImg from "../assets/aboutImg.jpg";
+import aboutImg from "../../assets/aboutImg.jpg";
+
 gsap.registerPlugin(ScrollTrigger);
 
 const AboutUs = memo(({ showButton = true }) => {

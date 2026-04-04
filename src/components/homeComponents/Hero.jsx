@@ -2,7 +2,7 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
-import heroVideo from "../assets/hero-video.mp4";
+import heroVideo from "../../assets/hero-video.mp4";
 
 const HeroSlider = () => {
   const contentRef = useRef(null);
