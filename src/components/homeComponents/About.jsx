@@ -4,7 +4,7 @@ import { memo, useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
+import aboutImg from "../assets/aboutImg.jpg";
 gsap.registerPlugin(ScrollTrigger);
 
 const AboutUs = memo(({ showButton = true }) => {
@@ -93,7 +93,7 @@ const AboutUs = memo(({ showButton = true }) => {
           {/* IMAGE */}
           <div className="flex justify-center lg:justify-end">
             <img
-              src="/src/assets/aboutImg.jpg"
+              src={aboutImg}
               alt="Stratviz Solution Headquarters"
               className="w-full max-w-sm object-cover rounded-4xl shadow-2xl transition-transform duration-500 hover:scale-[1.02]"
               loading="lazy"
