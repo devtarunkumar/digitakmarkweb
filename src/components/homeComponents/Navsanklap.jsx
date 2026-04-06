@@ -1,5 +1,6 @@
 import { FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import GsapReveal from "../GsapReveal";
 import darkimg from "../../assets/dark.avif";
 
@@ -27,6 +28,17 @@ const industries = [
 ];
 
 const StratvizSuite = () => {
+
+  // ✅ Mobile flip state
+  const [flippedCards, setFlippedCards] = useState({});
+
+  const handleFlip = (index) => {
+    setFlippedCards((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
+  };
+
   return (
     <section
       style={{ backgroundImage: `url(${darkimg})` }}
@@ -66,15 +78,19 @@ const StratvizSuite = () => {
                 delay={index * 0.1}
               >
                 {/* Flip Card */}
-                <div className="group [perspective:1200px] h-[260px]">
-
+                <div
+                  className="group [perspective:1200px] h-[260px]"
+                  onClick={() => handleFlip(index)}
+                  style={{ WebkitTapHighlightColor: "transparent" }}
+                >
                   <div
-                    className="
+                    className={`
                       relative w-full h-full
                       transition-transform duration-700
                       [transform-style:preserve-3d]
                       group-hover:[transform:rotateY(180deg)]
-                    "
+                      ${flippedCards[index] ? "[transform:rotateY(180deg)]" : ""}
+                    `}
                   >
                     {/* FRONT */}
                     <div className="absolute inset-0 rounded-3xl bg-black/40 backdrop-blur-xl border border-white/10 flex flex-col items-center justify-center text-center p-8 [backface-visibility:hidden]">
