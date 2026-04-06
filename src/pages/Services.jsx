@@ -4,10 +4,7 @@ import {
   FaFileAlt,
   FaCheckCircle,
   FaHospital,
-  FaHome,
-  FaArrowRight,
-  FaDatabase,
-  FaChartLine,
+  FaHome
 } from "react-icons/fa";
 import GsapReveal from "../components/GsapReveal";
 
