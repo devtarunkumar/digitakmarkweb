@@ -1,195 +1,132 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import girlImg from "../../assets/girl.jpeg";
-import girlMobile from "../../assets/girl-mobile.jpeg";
+
+import heroVideo from "../../assets/hero-video.mp4";
+import heroMobileVideo from "../../assets/hero-video1.mp4";
 
 const HeroSlider = () => {
   const sectionRef = useRef(null);
-  const typingRef = useRef(null);
-  const girlRef = useRef(null);
+  const desktopVideoRef = useRef(null);
+  const mobileVideoRef = useRef(null);
+  const titleRef = useRef(null);
 
+  /* ================= GSAP ================= */
   useGSAP(() => {
-    const tl = gsap.timeline();
+    const ctx = gsap.context(() => {
 
-    // ===== Entrance Animation =====
-    tl.from(".hero-text-item", {
-      y: 100,
-      opacity: 0,
-      duration: 1,
-      stagger: 0.1,
-      ease: "power4.out",
-    })
-      .from(
-        girlRef.current,
+      // VIDEO ENTRY
+      gsap.fromTo(
+        [desktopVideoRef.current, mobileVideoRef.current],
+        { opacity: 0, scale: 1.1 },
         {
-          opacity: 0,
-          scale: 0.9,
-          x: 50,
-          duration: 1.5,
+          opacity: 1,
+          scale: 1,
+          duration: 1.4,
           ease: "expo.out",
-        },
-        "-=0.5"
-      )
-      .from(
-        ".floating-card",
-        {
-          y: 30,
-          opacity: 0,
-          stagger: 0.2,
-          duration: 1,
-          ease: "back.out(1.7)",
-        },
-        "-=1"
+        }
       );
 
-    // ===== Floating Cards Animation =====
-    gsap.to(".floating-card", {
-      y: -20,
-      duration: 2.5,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut",
-      stagger: 0.4,
-    });
+      // TEXT ANIMATION
+      const letters =
+        titleRef.current?.querySelectorAll(".letter");
 
-    // ===== Mouse Parallax (Desktop Only) =====
-    const handleMouseMove = (e) => {
-      const xPos = e.clientX / window.innerWidth - 0.5;
-      const yPos = e.clientY / window.innerHeight - 0.5;
+      if (letters) {
+        gsap.fromTo(
+          letters,
+          { y: 60, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            stagger: 0.05,
+            duration: 0.8,
+            ease: "power3.out",
+            delay: 0.4,
+          }
+        );
+      }
 
-      gsap.to(girlRef.current, {
-        x: xPos * 30,
-        y: yPos * 30,
-        duration: 0.8,
-        ease: "power2.out",
-      });
+    }, sectionRef);
 
-      gsap.to(".floating-card", {
-        x: xPos * -60,
-        y: yPos * -60,
-        duration: 1,
-        stagger: 0.1,
-      });
+    return () => ctx.revert();
+  }, []);
+
+  /* ================= AUTOPLAY FIX ================= */
+  useEffect(() => {
+    const playVideo = (video) => {
+      if (!video) return;
+      video.muted = true;
+      video.play().catch(() => {});
     };
 
-    if (window.innerWidth > 768) {
-      window.addEventListener("mousemove", handleMouseMove);
-    }
+    playVideo(desktopVideoRef.current);
+    playVideo(mobileVideoRef.current);
+  }, []);
 
-    // ===== Typing Effect =====
-    const word = "Innovation";
-
-    const typeLoop = () => {
-      if (!typingRef.current) return;
-
-      typingRef.current.textContent = "";
-
-      gsap.to({}, {
-        duration: 1.5,
-        onUpdate() {
-          const progress = Math.floor(this.progress() * word.length);
-          typingRef.current.textContent = word.slice(0, progress);
-        },
-        onComplete: () => gsap.delayedCall(2, eraseText),
-      });
-    };
-
-    const eraseText = () => {
-      gsap.to({}, {
-        duration: 1,
-        onUpdate() {
-          const progress = Math.ceil(
-            (1 - this.progress()) * word.length
-          );
-          typingRef.current.textContent = word.slice(0, progress);
-        },
-        onComplete: () => gsap.delayedCall(0.5, typeLoop),
-      });
-    };
-
-    typeLoop();
-
-    return () =>
-      window.removeEventListener("mousemove", handleMouseMove);
-  }, { scope: sectionRef });
+  const text = "GROW WITH US";
 
   return (
     <section
       ref={sectionRef}
-      className="relative w-full overflow-hidden min-h-[110svh] -mt-20 bg-[#0A1118] flex items-center"
+      className="relative w-full min-h-[120svh] md:min-h-[120vh] -mt-24 overflow-hidden bg-black"
     >
-      {/* Background */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute w-[600px] h-[600px] bg-blue-500/10 blur-[150px] rounded-full -top-40 -left-40" />
-        <div className="absolute w-[500px] h-[500px] bg-emerald-500/10 blur-[130px] rounded-full bottom-0 right-0" />
-        <div className="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
-      </div>
+      {/* ===== DESKTOP VIDEO ===== */}
+      <video
+        ref={desktopVideoRef}
+        className="absolute inset-0 w-full h-full object-cover hidden md:block z-0"
+        src={heroVideo}
+        autoPlay
+        muted
+        loop
+        playsInline
+      />
 
-      <div className="relative z-20 max-w-7xl mx-auto px-6 lg:px-16 grid md:grid-cols-2 items-center gap-10 w-full">
+      {/* ===== MOBILE VIDEO ===== */}
+      <video
+        ref={mobileVideoRef}
+        className="absolute inset-0 w-full h-full object-cover block md:hidden z-0"
+        src={heroMobileVideo}
+        autoPlay
+        muted
+        loop
+        playsInline
+      />
 
-        {/* LEFT TEXT */}
-        <div className="space-y-8 text-center md:text-left hero-text-item">
-          <h1 className="text-4xl md:text-7xl font-extrabold text-white leading-[1.1]">
-            Strategic Digital <br />
-            <span className="bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
-              <span ref={typingRef}></span>
-              <span className="ml-1 inline-block w-1 h-12 md:h-16 bg-emerald-400 animate-pulse"></span>
+      {/* ===== OVERLAY ===== */}
+      <div className="absolute inset-0 bg-black/40 z-10" />
+
+      {/* ===== MOBILE TEXT ===== */}
+      <div className="absolute inset-0 flex items-center justify-center text-center px-4 z-20 md:hidden">
+        <h1
+          ref={titleRef}
+          className="
+            text-4xl sm:text-5xl
+            font-extrabold
+            flex flex-wrap justify-center
+            leading-tight
+            tracking-wide
+            text-white
+          "
+        >
+          {text.split("").map((char, i) => (
+            <span
+              key={i}
+              className="
+                letter
+                inline-block
+                bg-gradient-to-r
+                from-cyan-400
+                via-blue-500
+                to-purple-500
+                bg-clip-text
+                text-transparent
+                drop-shadow-[0_0_15px_rgba(59,130,246,0.7)]
+              "
+            >
+              {char === " " ? "\u00A0" : char}
             </span>
-          </h1>
-
-          <p className="text-gray-400 text-lg md:text-xl max-w-xl leading-relaxed">
-            Empowering businesses through cutting-edge digital infrastructure
-            and <span className="text-white font-medium">ROI-focused</span> marketing strategies.
-          </p>
-        </div>
-
-        {/* RIGHT IMAGE + CARDS */}
-        <div className="relative flex justify-center md:justify-end">
-
-          {/* Wrapper animated by GSAP */}
-          <div ref={girlRef} className="relative">
-
-            {/* Desktop Image */}
-            <img
-              src={girlImg}
-              alt="Digital Expert"
-              className="hidden md:block w-[500px] rounded-2xl drop-shadow-[0_35px_60px_rgba(0,0,0,0.8)]"
-            />
-
-            {/* Mobile Image */}
-            <img
-              src={girlMobile}
-              alt="Digital Expert"
-              className="block md:hidden w-[260px] rounded-2xl drop-shadow-[0_25px_40px_rgba(0,0,0,0.7)]"
-            />
-
-            {/* Floating Card 1 */}
-            <div className="floating-card absolute top-4 left-0 md:top-10 md:-left-12 p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-xl z-20">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 text-xs font-bold">
-                  ✓
-                </div>
-                <p className="text-white text-xs font-bold">
-                  Verified Strategy
-                </p>
-              </div>
-            </div>
-
-            {/* Floating Card 2 */}
-            <div className="floating-card absolute bottom-10 right-0 md:bottom-20 md:-right-12 p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-xl z-20">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 text-xs">
-                  📈
-                </div>
-                <p className="text-white text-xs font-bold">
-                  ROI Focused
-                </p>
-              </div>
-            </div>
-
-          </div>
-        </div>
+          ))}
+        </h1>
       </div>
     </section>
   );

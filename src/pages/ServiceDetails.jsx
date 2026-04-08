@@ -84,19 +84,19 @@ const ServiceDetail = () => {
         >
 
             {/* ================= HERO ================= */}
-            <div className="relative h-[220px] sm:h-[260px] md:h-[350px] lg:h-[420px] overflow-hidden">
+            <div className="relative h-[220px] sm:h-[260px] md:h-[350px] lg:h-[420px] overflow-hidden service-hero">
 
                 {/* BACK BUTTON */}
                 <button
                     onClick={handleBack}
                     className="
-                    absolute top-4 left-4 md:top-6 md:left-6 z-20
-                    flex items-center gap-2
-                    bg-black/60 backdrop-blur-md
-                    px-4 py-2 rounded-full
-                    text-sm md:text-base
-                    hover:bg-black transition
-                    "
+        absolute top-4 left-4 md:top-6 md:left-6 z-20
+        flex items-center gap-2
+        bg-black/60 backdrop-blur-md
+        px-4 py-2 rounded-full
+        text-sm md:text-base
+        hover:bg-black transition
+        "
                 >
                     <FaArrowLeft />
                     Back
@@ -108,6 +108,23 @@ const ServiceDetail = () => {
                     alt={service.title}
                     className="w-full h-full object-cover scale-105"
                 />
+
+                {/* DARK OVERLAY */}
+                <div className="absolute inset-0 bg-black/60" />
+
+                {/* ✅ GRADIENT TITLE */}
+                <div className="absolute inset-0 flex items-center justify-center text-center px-4">
+                    <h1
+                        className="
+            text-3xl sm:text-4xl md:text-5xl lg:text-6xl
+            font-bold
+            bg-gradient-to-r from-primary to-accent
+            bg-clip-text text-transparent
+            "
+                    >
+                        {service.title}
+                    </h1>
+                </div>
             </div>
 
             {/* ================= SECTIONS ================= */}
